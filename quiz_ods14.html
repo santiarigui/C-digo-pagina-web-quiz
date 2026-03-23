@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Metadatos básicos del documento -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quiz ODS 14 - Vida Submarina</title>
+
   <style>
+    /* Variables globales para reutilizar la paleta de colores en toda la página */
     :root{
       --azul:#0d3b66;
       --azul2:#1d70b8;
@@ -14,47 +17,69 @@
       --blanco:#ffffff;
       --rojo:#d62828;
     }
+
+    /* Hace que el tamaño total incluya padding y borde */
     *{box-sizing:border-box}
+
+    /* Estilo general del cuerpo de la página */
     body{
       margin:0;
       font-family:Arial, Helvetica, sans-serif;
       background:linear-gradient(135deg,#e8f4ff,#f6fbff);
       color:var(--texto);
     }
+
+    /* Contenedor principal centrado con ancho máximo */
     .contenedor{
       max-width:900px;
       margin:40px auto;
       padding:24px;
     }
+
+    /* Tarjeta que agrupa visualmente todo el quiz */
     .tarjeta{
       background:var(--blanco);
       border-radius:18px;
       box-shadow:0 10px 30px rgba(0,0,0,.08);
       overflow:hidden;
     }
+
+    /* Encabezado superior con degradado */
     .cabecera{
       background:linear-gradient(135deg,var(--azul2),var(--azul));
       color:white;
       padding:28px;
     }
+
+    /* Título principal del cuestionario */
     .cabecera h1{
       margin:0 0 10px;
       font-size:32px;
     }
+
+    /* Texto descriptivo debajo del título */
     .cabecera p{margin:0;font-size:16px;line-height:1.5}
+
+    /* Zona interior que contiene información, formulario y resultado */
     .contenido{padding:28px}
+
+    /* Cuadrícula de tarjetas informativas */
     .info{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
       gap:12px;
       margin-bottom:24px;
     }
+
+    /* Tarjetas pequeñas para mostrar datos generales del quiz */
     .mini{
       background:var(--gris);
       border-radius:14px;
       padding:14px 16px;
       border-left:5px solid var(--azul2);
     }
+
+    /* Caja individual para cada pregunta */
     .pregunta{
       margin-bottom:24px;
       padding:18px;
@@ -62,11 +87,15 @@
       border:1px solid #e5eef8;
       border-radius:14px;
     }
+
+    /* Estilo del enunciado de cada pregunta */
     .pregunta h3{
       margin:0 0 14px;
       font-size:19px;
       color:var(--azul);
     }
+
+    /* Cada opción se muestra como bloque clicable */
     label{
       display:block;
       padding:10px 12px;
@@ -77,14 +106,22 @@
       cursor:pointer;
       transition:.2s ease;
     }
+
+    /* Resalta la opción cuando el usuario pasa el cursor */
     label:hover{background:#eef7ff;border-color:#b8d7f2}
+
+    /* Da separación entre el radio y el texto */
     input[type="radio"]{margin-right:10px}
+
+    /* Contenedor flexible para los botones de acción */
     .acciones{
       display:flex;
       flex-wrap:wrap;
       gap:12px;
       margin-top:10px;
     }
+
+    /* Estilo base compartido por todos los botones */
     button{
       border:none;
       padding:14px 18px;
@@ -93,8 +130,14 @@
       font-size:15px;
       font-weight:700;
     }
+
+    /* Botón principal para calcular el resultado */
     .btn-principal{background:var(--azul2);color:white}
+
+    /* Botón secundario para reiniciar el cuestionario */
     .btn-secundario{background:#e9f3ff;color:var(--azul)}
+
+    /* Panel donde se mostrará el puntaje y la retroalimentación */
     .resultado{
       display:none;
       margin-top:24px;
@@ -103,15 +146,27 @@
       background:#f3fbf8;
       border:1px solid #cfeee4;
     }
+
+    /* Título del bloque de resultado */
     .resultado h2{margin-top:0;color:#14532d}
+
+    /* Sección con detalle pregunta por pregunta */
     .feedback{
       margin-top:18px;
       padding-top:10px;
       border-top:1px solid #d8e6e1;
     }
+
+    /* Espaciado entre elementos de la lista de feedback */
     .feedback li{margin:10px 0;line-height:1.5}
+
+    /* Estilo para indicar aciertos */
     .correcta{color:#166534;font-weight:700}
+
+    /* Estilo para indicar errores o preguntas no respondidas */
     .incorrecta{color:var(--rojo);font-weight:700}
+
+    /* Texto final al pie de la tarjeta */
     .pie{
       text-align:center;
       color:#5b6b80;
@@ -121,68 +176,80 @@
   </style>
 </head>
 <body>
+  <!-- Estructura principal visible del quiz -->
   <div class="contenedor">
     <div class="tarjeta">
+      <!-- Encabezado del quiz -->
       <div class="cabecera">
         <h1>Quiz ODS 14 - Vida Submarina</h1>
-        <p>Cuestionario interactivo en JavaScript sobre el Objetivo de Desarrollo Sostenible 14. Evalúa conceptos, importancia, riesgos y soluciones tecnológicas.</p>
+        <p>Cuestionario interactivo en JavaScript sobre el Objetivo de Desarrollo Sostenible 14. EvalÃºa conceptos, importancia, riesgos y soluciones tecnolÃ³gicas.</p>
       </div>
+
+      <!-- Contenido central del cuestionario -->
       <div class="contenido">
+        <!-- Resumen general de la actividad -->
         <div class="info">
           <div class="mini"><strong>Tema:</strong><br>ODS 14 - Vida submarina</div>
-          <div class="mini"><strong>Tipo:</strong><br>Quiz de selección múltiple</div>
+          <div class="mini"><strong>Tipo:</strong><br>Quiz de selecciÃ³n mÃºltiple</div>
           <div class="mini"><strong>Puntaje:</strong><br>10 preguntas</div>
         </div>
 
+        <!-- Formulario vacío; JavaScript insertará aquí las preguntas -->
         <form id="quizForm"></form>
 
+        <!-- Botones de interacción del usuario -->
         <div class="acciones">
           <button class="btn-principal" type="button" onclick="calcularResultado()">Calcular resultado</button>
           <button class="btn-secundario" type="button" onclick="reiniciarQuiz()">Reiniciar</button>
         </div>
 
+        <!-- Contenedor oculto inicialmente para mostrar el resultado -->
         <div class="resultado" id="resultado"></div>
       </div>
     </div>
-    <div class="pie">Página hecha en HTML, CSS y JavaScript puro.</div>
+
+    <!-- Pie de página -->
+    <div class="pie">PÃ¡gina hecha en HTML, CSS y JavaScript puro.</div>
   </div>
 
   <script>
+    // Base de datos local del quiz:
+    // cada objeto contiene el enunciado, las opciones y el índice correcto.
     const preguntas = [
       {
-        enunciado: "1. ¿Cuál es el propósito principal del ODS 14?",
+        enunciado: "1. Â¿CuÃ¡l es el propÃ³sito principal del ODS 14?",
         opciones: [
           "Promover el turismo masivo en zonas costeras",
-          "Conservar y utilizar sosteniblemente los océanos, mares y recursos marinos",
-          "Extraer más recursos del océano para acelerar la economía",
-          "Construir más puertos industriales"
+          "Conservar y utilizar sosteniblemente los ocÃ©anos, mares y recursos marinos",
+          "Extraer mÃ¡s recursos del ocÃ©ano para acelerar la economÃ­a",
+          "Construir mÃ¡s puertos industriales"
         ],
         correcta: 1
       },
       {
-        enunciado: "2. ¿Cuál de los siguientes problemas afecta directamente a la vida submarina?",
-        opciones: ["La sobrepesca", "La reforestación", "El reciclaje doméstico", "La energía solar"],
+        enunciado: "2. Â¿CuÃ¡l de los siguientes problemas afecta directamente a la vida submarina?",
+        opciones: ["La sobrepesca", "La reforestaciÃ³n", "El reciclaje domÃ©stico", "La energÃ­a solar"],
         correcta: 0
       },
       {
-        enunciado: "3. ¿Por qué son importantes los océanos para el planeta?",
+        enunciado: "3. Â¿Por quÃ© son importantes los ocÃ©anos para el planeta?",
         opciones: [
-          "Porque solo sirven para actividades turísticas",
-          "Porque no tienen relación con el clima",
-          "Porque regulan el clima, sostienen biodiversidad y apoyan la alimentación",
-          "Porque únicamente benefician a las ciudades costeras"
+          "Porque solo sirven para actividades turÃ­sticas",
+          "Porque no tienen relaciÃ³n con el clima",
+          "Porque regulan el clima, sostienen biodiversidad y apoyan la alimentaciÃ³n",
+          "Porque Ãºnicamente benefician a las ciudades costeras"
         ],
         correcta: 2
       },
       {
-        enunciado: "4. ¿Qué tipo de contaminación es una de las más graves para los océanos?",
-        opciones: ["Contaminación lumínica", "Contaminación plástica", "Contaminación sonora urbana", "Contaminación visual"],
+        enunciado: "4. Â¿QuÃ© tipo de contaminaciÃ³n es una de las mÃ¡s graves para los ocÃ©anos?",
+        opciones: ["ContaminaciÃ³n lumÃ­nica", "ContaminaciÃ³n plÃ¡stica", "ContaminaciÃ³n sonora urbana", "ContaminaciÃ³n visual"],
         correcta: 1
       },
       {
-        enunciado: "5. ¿Cómo puede ayudar la ingeniería de software al ODS 14?",
+        enunciado: "5. Â¿CÃ³mo puede ayudar la ingenierÃ­a de software al ODS 14?",
         opciones: [
-          "Creando sistemas de monitoreo y análisis de datos marinos",
+          "Creando sistemas de monitoreo y anÃ¡lisis de datos marinos",
           "Aumentando la pesca sin control",
           "Reduciendo el uso de internet",
           "Eliminando los mapas digitales"
@@ -190,107 +257,131 @@
         correcta: 0
       },
       {
-        enunciado: "6. ¿Qué tecnología puede detectar patrones de pesca ilegal?",
-        opciones: ["Hojas de cálculo impresas", "Máquinas de escribir", "Satélites e inteligencia artificial", "Calculadoras básicas"],
+        enunciado: "6. Â¿QuÃ© tecnologÃ­a puede detectar patrones de pesca ilegal?",
+        opciones: ["Hojas de cÃ¡lculo impresas", "MÃ¡quinas de escribir", "SatÃ©lites e inteligencia artificial", "Calculadoras bÃ¡sicas"],
         correcta: 2
       },
       {
-        enunciado: "7. ¿Cuál es un caso real relacionado con protección del océano mediante tecnología?",
+        enunciado: "7. Â¿CuÃ¡l es un caso real relacionado con protecciÃ³n del ocÃ©ano mediante tecnologÃ­a?",
         opciones: ["Global Fishing Watch", "Un videojuego de carreras", "Una red social escolar", "Un procesador de texto"],
         correcta: 0
       },
       {
-        enunciado: "8. ¿Qué busca reducir The Ocean Cleanup?",
-        opciones: ["La pesca artesanal", "El plástico en océanos y ríos", "La salinidad marina", "La lluvia en costas"],
+        enunciado: "8. Â¿QuÃ© busca reducir The Ocean Cleanup?",
+        opciones: ["La pesca artesanal", "El plÃ¡stico en ocÃ©anos y rÃ­os", "La salinidad marina", "La lluvia en costas"],
         correcta: 1
       },
       {
-        enunciado: "9. ¿Qué beneficio tiene una plataforma web ambiental para zonas costeras?",
+        enunciado: "9. Â¿QuÃ© beneficio tiene una plataforma web ambiental para zonas costeras?",
         opciones: [
-          "Centralizar información y apoyar decisiones",
-          "Ocultar datos científicos",
-          "Eliminar la participación ciudadana",
+          "Centralizar informaciÃ³n y apoyar decisiones",
+          "Ocultar datos cientÃ­ficos",
+          "Eliminar la participaciÃ³n ciudadana",
           "Aumentar residuos marinos"
         ],
         correcta: 0
       },
       {
-        enunciado: "10. ¿Cuál es una meta coherente con el ODS 14?",
+        enunciado: "10. Â¿CuÃ¡l es una meta coherente con el ODS 14?",
         opciones: [
-          "Incrementar la contaminación marina",
+          "Incrementar la contaminaciÃ³n marina",
           "Proteger ecosistemas marinos y costeros",
           "Ignorar la biodiversidad marina",
-          "Permitir la sobreexplotación pesquera"
+          "Permitir la sobreexplotaciÃ³n pesquera"
         ],
         correcta: 1
       }
     ];
 
+    // Referencias directas a los elementos que se manipulan desde JavaScript.
     const formulario = document.getElementById('quizForm');
     const resultado = document.getElementById('resultado');
 
+    // Construye el formulario del quiz de manera dinámica.
     function renderizarQuiz(){
+      // Limpia el formulario en caso de que ya hubiese contenido previo.
       formulario.innerHTML = '';
+
+      // Recorre todas las preguntas y crea su estructura HTML.
       preguntas.forEach((pregunta, indice) => {
         const bloque = document.createElement('div');
         bloque.className = 'pregunta';
 
+        // Inserta el texto del enunciado.
         const titulo = document.createElement('h3');
         titulo.textContent = pregunta.enunciado;
         bloque.appendChild(titulo);
 
+        // Inserta cada opción como un radio button agrupado por pregunta.
         pregunta.opciones.forEach((opcion, i) => {
           const label = document.createElement('label');
           label.innerHTML = `<input type="radio" name="pregunta${indice}" value="${i}"> ${opcion}`;
           bloque.appendChild(label);
         });
 
+        // Añade la pregunta completa al formulario.
         formulario.appendChild(bloque);
       });
     }
 
+    // Evalúa las respuestas del usuario y calcula el resultado final.
     function calcularResultado(){
       let puntaje = 0;
-      let detalle = '<div class="feedback"><h3>Revisión de respuestas</h3><ul>';
 
+      // Se arma el HTML del detalle de respuestas para mostrar feedback individual.
+      let detalle = '<div class="feedback"><h3>RevisiÃ³n de respuestas</h3><ul>';
+
+      // Recorre todas las preguntas y compara la selección del usuario con la correcta.
       preguntas.forEach((pregunta, indice) => {
         const seleccionada = document.querySelector(`input[name="pregunta${indice}"]:checked`);
+
+        // Si el usuario respondió la pregunta, se evalúa su valor.
         if(seleccionada){
           const valor = Number(seleccionada.value);
+
+          // Si coincide con la opción correcta, suma un punto.
           if(valor === pregunta.correcta){
             puntaje++;
             detalle += `<li><span class="correcta">Pregunta ${indice + 1}: correcta.</span></li>`;
           } else {
+            // Si falla, se informa cuál era la respuesta correcta.
             detalle += `<li><span class="incorrecta">Pregunta ${indice + 1}: incorrecta.</span> Respuesta correcta: ${pregunta.opciones[pregunta.correcta]}.</li>`;
           }
         } else {
+          // Si no respondió, también se muestra la opción correcta.
           detalle += `<li><span class="incorrecta">Pregunta ${indice + 1}: sin responder.</span> Respuesta correcta: ${pregunta.opciones[pregunta.correcta]}.</li>`;
         }
       });
 
+      // Cierra la lista HTML del bloque de detalle.
       detalle += '</ul></div>';
 
+      // Mensaje cualitativo según el puntaje obtenido.
       let mensaje = '';
       if(puntaje === 10){
         mensaje = 'Excelente dominio del tema.';
       } else if(puntaje >= 7){
         mensaje = 'Buen resultado. Vas bastante bien.';
       } else if(puntaje >= 5){
-        mensaje = 'Resultado aceptable, pero toca repasar un poco más.';
+        mensaje = 'Resultado aceptable, pero toca repasar un poco mÃ¡s.';
       } else {
         mensaje = 'Conviene estudiar otra vez el tema antes de entregar o presentar.';
       }
 
+      // Hace visible el panel y muestra resumen, puntaje y retroalimentación.
       resultado.style.display = 'block';
       resultado.innerHTML = `
         <h2>Resultado final</h2>
         <p><strong>Puntaje:</strong> ${puntaje} / ${preguntas.length}</p>
-        <p><strong>Valoración:</strong> ${mensaje}</p>
+        <p><strong>ValoraciÃ³n:</strong> ${mensaje}</p>
         ${detalle}
       `;
+
+      // Lleva la vista del usuario hasta la zona de resultados.
       resultado.scrollIntoView({behavior:'smooth'});
     }
 
+    // Reinicia el formulario y oculta cualquier resultado previo.
     function reiniciarQuiz(){
       formulario.reset();
       resultado.style.display = 'none';
@@ -298,6 +389,7 @@
       window.scrollTo({top:0, behavior:'smooth'});
     }
 
+    // Render inicial del cuestionario al cargar la página.
     renderizarQuiz();
   </script>
 </body>
